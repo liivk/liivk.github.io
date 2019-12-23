@@ -99,3 +99,21 @@ theme: space
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: ''
+
+# Search
+search:
+  path: search.json
+  field: post
+  format: html
+
+# 主题配置（覆盖主题中的_config.yml）
+theme_config:
+  gitalk:
+    enable: true # true
+    clientID: 'be4a782f259d48039fed' # GitHub Application Client ID
+    clientSecret: 'a319265f87b24084693c6cc46c363cf1330c6300' # Client Secret
+    repo: 'liivk.github.io' # Repository name
+    owner: 'liivk' # GitHub ID
+    admin: 'liivk' # GitHub ID
+    distractionFreeMode: false # true
+  prev_next: false
