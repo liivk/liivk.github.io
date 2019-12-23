@@ -1,0 +1,3 @@
+[submodule "themes/space"]
+	path = themes/space
+	url = git@github.com:liivk/space.git
