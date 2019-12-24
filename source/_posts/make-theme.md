@@ -1,8 +1,8 @@
 ---
 title: 制作Hexo主题
-date: 2019-12-22 23:03:57
+date: 2019-12-22 23:03
 categories:
-- Hexo
+  - Hexo
 ---
 
 翻找了半天主题，一直没有找到自己想要的，要么太复杂，要么太简单，总是差点意思，最后决定还是自己制作一个好了。
@@ -138,3 +138,36 @@ if theme.busuanzi
 ```
 
 即可。
+
+## 修改模板
+
+## 添加分类
+
+在`layout`中添加分类专用模板`categories.pug`（也可以是其他名称，但不能是“category”，因为这个已经被hexo默认占用了[模板](https://hexo.io/zh-cn/docs/templates)），模板如下：
+
+```pug
+extends partial/layout
+
+block container
+  h1.categories!=  __('prev_post')
+  .category-all!= list_categories(site.categories, { show_count: false })
+
+block copyright
+  include partial/copyright
+```
+
+其中继承的layout和下方的内容可以自定义，关键在`list_categories`方法，该方法由[Hexo](https://hexo.io/zh-cn/docs/helpers#list-categories)提供，会渲染出分类列表，将其放在合适的位置。
+
+第一个参数需传递`site.categories`，将会渲染全站所有的分类数据（参考[变量](https://hexo.io/zh-cn/docs/variables)）。
+
+第二个参数为一些个性化参数，可自由配置。
+
+添加完成分类专用模板之后，如果想要个性化定制，还需要添加`category.pug`（必须是这个名称），在模板中通过`page.posts`获取到分类列表数据进行渲染。由于hexo会依次查找category-archive-index，当有该模板时就会拿来渲染，因此也可以在后几个模板中做兼容处理，而无需单独创建`category.pug`，参见[模板](https://hexo.io/zh-cn/docs/templates)
+
+使用时新建page
+
+```
+$ hexo new page <title>
+```
+
+在新建的page中添加`layout`属性为自己建的专用模板的名称即可。

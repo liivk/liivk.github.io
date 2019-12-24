@@ -1,8 +1,8 @@
 ---
 title: 快速搭建Hexo+Github博客
-date: 2019-12-21 23:01:35
+date: 2019-12-21 23:01
 categories: 
-- Hexo
+  - Hexo
 ---
 
 ## 使用Hexo+Github搭建博客
