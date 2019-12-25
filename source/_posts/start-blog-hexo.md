@@ -75,4 +75,6 @@ $ git submodule add git@github.com:XXX/XXX.git themes/XXX
 
 ## 发布
 
+使用[GitHub Actions](http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html)
+
 ## 备份源码
