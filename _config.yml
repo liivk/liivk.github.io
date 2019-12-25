@@ -117,3 +117,6 @@ theme_config:
     admin: 'liivk' # GitHub ID
     distractionFreeMode: false # true
   prev_next: false
+  busuanzi: true
+  favicon: 
+  logo: 
