@@ -118,5 +118,5 @@ theme_config:
     distractionFreeMode: false # true
   prev_next: false
   busuanzi: true
-  favicon: 
+  # favicon: 
   logo: 
