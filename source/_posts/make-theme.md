@@ -12,7 +12,7 @@ excerpt: 翻找了半天主题，一直没有找到自己想要的，要么太�
 
 ## Gitalk
 
-> [Gitalk](https://gitalk.github.io)是一款使用Github的issue记录评论的插件，非常适合放在Github上的静态博客
+> [Gitalk](https://gitalk.github.io) 是一款使用Github的issue记录评论的插件，非常适合放在Github上的静态博客
 
 在主题的`_config.yml`中添加配置项：
 
@@ -71,7 +71,7 @@ id: md5(location.pathname),
 
 ## Search
 
-> [hexo-generator-searchdb](https://github.com/theme-next/hexo-generator-searchdb)为静态博客生成搜索所需数据
+> [hexo-generator-searchdb](https://github.com/theme-next/hexo-generator-searchdb) 为静态博客生成搜索所需数据
 
 ```bash
 $ npm install hexo-generator-searchdb --save
@@ -90,13 +90,14 @@ search: true
 # Search
 search:
   path: search.json
-  field: post
+  field: all
+  content: true
   format: html
 ```
 
 ## Less
 
-> [hexo-renderer-less](https://github.com/hexojs/hexo-renderer-less)使主题可使用less
+> [hexo-renderer-less](https://github.com/hexojs/hexo-renderer-less) 使主题可使用less
 
 ```bash
 $ npm install hexo-renderer-less --save
@@ -113,7 +114,7 @@ less:
 
 ## busuanzi
 
-> [busuanzi](https://busuanzi.ibruce.info/)访问量统计
+> [busuanzi](https://busuanzi.ibruce.info/) 访问量统计
 
 在主题的`_config.yml`中添加选项：
 
@@ -139,6 +140,24 @@ if theme.busuanzi
 ```
 
 即可。
+
+## Sitemap
+
+> [hexo-generator-sitemap](https://github.com/hexojs/hexo-generator-sitemap) 站点地图用于SEO，生成xml文件供搜索引擎爬取
+
+```bash
+$ npm install hexo-generator-sitemap --save
+```
+
+在根目录下的`_config.yml`中添加配置项：
+
+```yml
+# Sitemap
+sitemap:
+  path: sitemap.xml
+```
+
+其他配置可参见[hexo-generator-sitemap](https://github.com/hexojs/hexo-generator-sitemap)
 
 ## 修改模板
 
