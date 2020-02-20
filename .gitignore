@@ -25,3 +25,6 @@ public/
 # Cache
 db.json
 debug.log
+
+# log
+.deploy_git
