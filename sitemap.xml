@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://liivk.github.io/search.json</loc>
-    
-    <lastmod>2019-12-27T02:37:37.293Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://liivk.github.io/2019/12/make-theme/</loc>
     
     <lastmod>2019-12-26T03:45:30.632Z</lastmod>
@@ -33,13 +26,6 @@
     <loc>https://liivk.github.io/2019/12/source-address-switch/</loc>
     
     <lastmod>2019-12-26T02:47:39.051Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://liivk.github.io/2019/12/hello-world/</loc>
-    
-    <lastmod>2019-12-23T05:58:47.506Z</lastmod>
     
   </url>
   
