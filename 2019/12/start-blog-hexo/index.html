@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>快速搭建Hexo+Github博客 · Hexo</title><meta name="description" content="快速搭建Hexo+Github博客 - liivk"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><meta name="generator" content="Hexo 4.1.1"></head><body><div class="wrap"><header><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">BLOG</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags" target="_self">TAGS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVE</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li><li class="nav-list-item" id="local-search">SEARCH</li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">快速搭建Hexo+Github博客</h1><div class="post-info">2019年12月21日</div><div class="post-content"><h2 id="使用Hexo-Github搭建博客"><a href="#使用Hexo-Github搭建博客" class="headerlink" title="使用Hexo+Github搭建博客"></a>使用Hexo+Github搭建博客</h2><p>好久没有弄博客了，之前用WordPress在阿里云上搭了一个，但是自从阿里云到期后就一直懒得再弄了。平时写的记的都放在为知笔记里，现在终于打算再整理一下，思来想去还是弄个托管在Github上的静态博客吧，免得以后再要迁移服务器什么的那么麻烦。</p>
+<p>静态博客的框架有很多，Github Pages推的<a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a>，使用Go编写的<a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>，使用Python编写的<a href="https://getpelican.com/" target="_blank" rel="noopener">Pelican</a>等等，作为一个前端er，肯定就要用基于Node开发的<a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a>啦</p>
+<h2 id="本地搭建"><a href="#本地搭建" class="headerlink" title="本地搭建"></a>本地搭建</h2><p>开始之前，需要安装一下<a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">Node</a>环境。推荐使用<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">Nvm</a>来管理node环境，当然如果你只是为了写个博客，那么去node官网下载安装即可。</p>
+<p>安装完成之后，推荐按照<a href="/2019/12/source-address-switch/">切换常用软件源地址</a>中设置一下npm源和github代理，否过国内的网络环境，你懂的~</p>
+<p>做好了准备工作，就可以按照以下步骤开始了：</p>
+<ul>
+<li><p>安装hexo <code>npm i hexo-cli -g</code></p>
+</li>
+<li><p>初始化项目 <code>hexo init blog</code></p>
+</li>
+<li><p>进入项目并安装依赖 <code>cd blog &amp;&amp; npm i</code></p>
+</li>
+<li><p>启动本地服务 <code>hexo server</code></p>
+</li>
+</ul>
+<h2 id="个性化"><a href="#个性化" class="headerlink" title="个性化"></a>个性化</h2><p>Hexo支持设置主题，在官网上收录有部分<a href="https://hexo.io/themes/" target="_blank" rel="noopener">主题</a>，也可以去Github上自己找。</p>
+<blockquote>
+<p>建议不要直接clone源仓库，因为如果自己有对主题做修改，那么修改是无法提交的。建议先fork主题到自己的github下，然后在clone这个fork的仓库，这样就可以push提交了</p>
+</blockquote>
+<p>将主题clone到themes目录下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:XXX/XXX.git themes/XXX</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用git submodule</strong></p>
+<p>直接clone不方便在其他地方上拉取主题模块，因此建议使用<a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97" target="_blank" rel="noopener">Git Submodule</a>来管理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git submodule add git@github.com:XXX/XXX.git themes/XXX</span><br></pre></td></tr></table></figure>
+
+<p>在重新clone时加上<code>--recursive</code>，即可自动拉取子模块。亦或clone之后执行：</p>
+<ul>
+<li><p><code>git submodule init</code></p>
+</li>
+<li><p><code>git submodule update</code> </p>
+</li>
+</ul>
+<p>初始化和拉取更新。</p>
+<p>因为git submodule默认检出的是master上最新的提交，并未做分支跟踪，因此可以再执行：</p>
+<ul>
+<li><code>git submodule foreach &#39;git checkout master&#39;</code></li>
+</ul>
+<p>手动切到master分支。</p>
+<p>之后更新子模块则可使用：</p>
+<ul>
+<li><code>git submodule foreach &#39;git pull&#39;</code></li>
+</ul>
+<p>如需要开发子模块，则进入子模块中checkout到所需分支。</p>
+<p>最后按照主题里要求的安装依赖，再修改项目下<code>_config.yml</code>中的<code>theme</code>项为themes目录里的主题文件夹名即可</p>
+<h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>使用<a href="http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html" target="_blank" rel="noopener">GitHub Actions</a></p>
+<h2 id="备份源码"><a href="#备份源码" class="headerlink" title="备份源码"></a>备份源码</h2></div></article></div></main><footer><div class="paginator-line"></div><link rel="stylesheet" href="/lib/gitalk.css"><script src="/lib/gitalk.min.js"></script><script src="/lib/md5.min.js"></script><div class="gitalk" id="gitalk-container"></div><script>var gitalk = new Gitalk({
+    clientID: 'be4a782f259d48039fed',
+    clientSecret: 'a319265f87b24084693c6cc46c363cf1330c6300',
+    repo: 'liivk.github.io',
+    owner: 'liivk',
+    admin: ['liivk'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'false',  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+})
+gitalk.render('gitalk-container')</script><div class="copyright"><p><span class="copyright-desction">© 2019 <a href="https://liivk.github.io">liivk</a>, Power by <a href="https://hexo.io/" target="_blank">Hexo</a> | <a href="https://github.com/liivk/hexo-theme-space" target="_blank">Space</a></span></p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script src="/lib/zepto.min.js"></script><script defer src="/js/space.js"></script></body></html>

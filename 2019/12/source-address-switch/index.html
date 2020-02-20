@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>切换常用软件源地址 · Hexo</title><meta name="description" content="切换常用软件源地址 - liivk"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><meta name="generator" content="Hexo 4.1.1"></head><body><div class="wrap"><header><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">BLOG</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags" target="_self">TAGS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVE</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li><li class="nav-list-item" id="local-search">SEARCH</li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">切换常用软件源地址</h1><div class="post-info">2019年12月22日</div><div class="post-content"><h2 id="设置git代理"><a href="#设置git代理" class="headerlink" title="设置git代理"></a>设置git代理</h2><blockquote>
+<p>需要拥有梯子，同时开启梯子的本地sock代理或http代理</p>
+</blockquote>
+<p><strong>设置git全局代理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global http.proxy socks5://127.0.0.1:1080</span><br><span class="line">$ git config --global https.proxy socks5://127.0.0.1:1080</span><br></pre></td></tr></table></figure>
+
+<p>如果只想代理特定网站，例如Github，则把<code>https.proxy</code>改为<code>https.https://github.com.proxy</code>(<code>http.proxy</code>同理)。</p>
+<p>如果想用梯子的http代理，则把<code>socks5://127.0.0.1:1080</code>改为<code>http://127.0.0.1:1080</code></p>
+<p><strong>取消代理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global --<span class="built_in">unset</span> http.proxy</span><br><span class="line">$ git config --global --<span class="built_in">unset</span> https.proxy</span><br></pre></td></tr></table></figure>
+
+<p>如果设置时是代理特定网站，则命令改成<code>https.https://github.com.proxy</code></p>
+<blockquote>
+<p>以上仅针对拉取仓库时是https协议的，ssh协议如下</p>
+</blockquote>
+<p><strong>SSH协议仓库</strong></p>
+<p>修改<code>~/.ssh/config</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">  HostName github.com</span><br><span class="line">  User git</span><br><span class="line">  # sock代理</span><br><span class="line">  ProxyCommand nc -v -x 127.0.0.1:1080 %h %p</span><br><span class="line">  # http代理</span><br><span class="line">  # ProxyCommand socat - PROXY:127.0.0.1:%h:%p,proxyport&#x3D;8080</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator-line"></div><link rel="stylesheet" href="/lib/gitalk.css"><script src="/lib/gitalk.min.js"></script><script src="/lib/md5.min.js"></script><div class="gitalk" id="gitalk-container"></div><script>var gitalk = new Gitalk({
+    clientID: 'be4a782f259d48039fed',
+    clientSecret: 'a319265f87b24084693c6cc46c363cf1330c6300',
+    repo: 'liivk.github.io',
+    owner: 'liivk',
+    admin: ['liivk'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'false',  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+})
+gitalk.render('gitalk-container')</script><div class="copyright"><p><span class="copyright-desction">© 2019 <a href="https://liivk.github.io">liivk</a>, Power by <a href="https://hexo.io/" target="_blank">Hexo</a> | <a href="https://github.com/liivk/hexo-theme-space" target="_blank">Space</a></span></p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script src="/lib/zepto.min.js"></script><script defer src="/js/space.js"></script></body></html>

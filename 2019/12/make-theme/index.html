@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>制作Hexo主题 · Hexo</title><meta name="description" content="制作Hexo主题 - liivk"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><meta name="generator" content="Hexo 4.1.1"></head><body><div class="wrap"><header><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">BLOG</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags" target="_self">TAGS</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives" target="_self">ARCHIVE</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about" target="_self">ABOUT</a></li><li class="nav-list-item" id="local-search">SEARCH</li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">制作Hexo主题</h1><div class="post-info">2019年12月22日</div><div class="post-content"><p>翻找了半天主题，一直没有找到自己想要的，要么太复杂，要么太简单，总是差点意思，最后决定还是自己制作一个好了。</p>
+<p>不过从头开始有点太麻烦了，所以打算基于<a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank" rel="noopener">Apollo</a>这款主题，做一些定制化更改。本帖就记录一下其中的改动点好了</p>
+<h2 id="Gitalk"><a href="#Gitalk" class="headerlink" title="Gitalk"></a>Gitalk</h2><blockquote>
+<p><a href="https://gitalk.github.io" target="_blank" rel="noopener">Gitalk</a> 是一款使用Github的issue记录评论的插件，非常适合放在Github上的静态博客</p>
+</blockquote>
+<p>在主题的<code>_config.yml</code>中添加配置项：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Comment</span></span><br><span class="line"><span class="attr">gitalk:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">false</span> <span class="comment"># true</span></span><br><span class="line">  <span class="attr">clientID:</span> <span class="string">''</span> <span class="comment"># GitHub Application Client ID</span></span><br><span class="line">  <span class="attr">clientSecret:</span> <span class="string">''</span> <span class="comment"># Client Secret</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">''</span> <span class="comment"># Repository name</span></span><br><span class="line">  <span class="attr">owner:</span> <span class="string">''</span> <span class="comment"># GitHub ID</span></span><br><span class="line">  <span class="attr">admin:</span> <span class="string">''</span> <span class="comment"># GitHub ID</span></span><br><span class="line">  <span class="attr">distractionFreeMode:</span> <span class="literal">false</span> <span class="comment"># true</span></span><br></pre></td></tr></table></figure>
+
+<p>可将gitalk的js、css资源放在<code>source/lib</code>下。</p>
+<p>在主题的<code>layout/partial</code>文件夹中，新建一个<code>comment.pug</code>（需使用主题所选的模板）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">if theme.gitalk.enable</span><br><span class="line">  link(rel&#x3D;&quot;stylesheet&quot;, href&#x3D;url_for(&quot;lib&#x2F;gitalk.css&quot;))</span><br><span class="line">  script(src&#x3D;url_for(&quot;lib&#x2F;gitalk.min.js&quot;))</span><br><span class="line">  .gitalk#gitalk-container</span><br><span class="line">  script.</span><br><span class="line">    var gitalk &#x3D; new Gitalk(&#123;</span><br><span class="line">      clientID: &#39;!&#123;theme.gitalk.clientID&#125;&#39;,</span><br><span class="line">      clientSecret: &#39;!&#123;theme.gitalk.clientSecret&#125;&#39;,</span><br><span class="line">      repo: &#39;!&#123;theme.gitalk.repo&#125;&#39;,</span><br><span class="line">      owner: &#39;!&#123;theme.gitalk.owner&#125;&#39;,</span><br><span class="line">      admin: [&#39;!&#123;theme.gitalk.admin&#125;&#39;],</span><br><span class="line">      id: location.pathname,</span><br><span class="line">      distractionFreeMode: &#39;!&#123;theme.gitalk.distractionFreeMode&#125;&#39;,  &#x2F;&#x2F; Facebook-like distraction free mode</span><br><span class="line">      pagerDirection: &#39;last&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">    gitalk.render(&#39;gitalk-container&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>在<code>layout/post.pug</code>中文章下添加:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include partial&#x2F;comment</span><br></pre></td></tr></table></figure>
+
+<p>主题中要加的东西就这些了，至于配置项中的配置如何申请，参见<a href="https://gitalk.github.io" target="_blank" rel="noopener">Gitalk</a></p>
+<p>因为Gitalk使用初始化时的id创建issue，为避免非法字符，可以对<code>location.pathname</code>做<code>md5</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">script(src&#x3D;url_for(&quot;lib&#x2F;md5.min.js&quot;))</span><br><span class="line">...</span><br><span class="line">id: md5(location.pathname),</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Search"><a href="#Search" class="headerlink" title="Search"></a>Search</h2><blockquote>
+<p><a href="https://github.com/theme-next/hexo-generator-searchdb" target="_blank" rel="noopener">hexo-generator-searchdb</a> 为静态博客生成搜索所需数据</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+
+<p>在主题的<code>_config.yml</code>中添加配置项：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否启用搜索</span></span><br><span class="line"><span class="attr">search:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>在根目录下的<code>_config.yml</code>中添加配置项：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Search</span></span><br><span class="line"><span class="attr">search:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">search.json</span></span><br><span class="line">  <span class="attr">field:</span> <span class="string">all</span></span><br><span class="line">  <span class="attr">content:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">format:</span> <span class="string">html</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Less"><a href="#Less" class="headerlink" title="Less"></a>Less</h2><blockquote>
+<p><a href="https://github.com/hexojs/hexo-renderer-less" target="_blank" rel="noopener">hexo-renderer-less</a> 使主题可使用less</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-renderer-less --save</span><br></pre></td></tr></table></figure>
+
+<p>在主题目录下的<code>_config.yml</code>中添加less文件的路径</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">less:</span><br><span class="line">  paths: [<span class="string">'source/css'</span>]</span><br></pre></td></tr></table></figure>
+
+<p>至此即可修改css文件夹中的less样式啦</p>
+<h2 id="busuanzi"><a href="#busuanzi" class="headerlink" title="busuanzi"></a>busuanzi</h2><blockquote>
+<p><a href="https://busuanzi.ibruce.info/" target="_blank" rel="noopener">busuanzi</a> 访问量统计</p>
+</blockquote>
+<p>在主题的<code>_config.yml</code>中添加选项：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问量统计(不蒜子)</span></span><br><span class="line"><span class="attr">busuanzi:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>将busuanzi的js代码放到<code>source/lib</code>下，再在模板中（例如<code>scripts.pug</code>或<code>footer.pug</code>之类）添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;- 访问量统计</span><br><span class="line">if theme.busuanzi</span><br><span class="line">  script(async src&#x3D;url_for(&quot;lib&#x2F;busuanzi.pure.mini.js&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>在你想要展示访问量的地方添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if theme.busuanzi</span><br><span class="line">  .busuanzi</span><br><span class="line">    &lt;span id&#x3D;&quot;busuanzi_container_site_pv&quot;&gt;本站总访问量&lt;span id&#x3D;&quot;busuanzi_value_site_pv&quot;&gt;&lt;&#x2F;span&gt;次&lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure>
+
+<p>即可。</p>
+<h2 id="Sitemap"><a href="#Sitemap" class="headerlink" title="Sitemap"></a>Sitemap</h2><blockquote>
+<p><a href="https://github.com/hexojs/hexo-generator-sitemap" target="_blank" rel="noopener">hexo-generator-sitemap</a> 站点地图用于SEO，生成xml文件供搜索引擎爬取</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-generator-sitemap --save</span><br></pre></td></tr></table></figure>
+
+<p>在根目录下的<code>_config.yml</code>中添加配置项：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Sitemap</span></span><br><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure>
+
+<p>其他配置可参见<a href="https://github.com/hexojs/hexo-generator-sitemap" target="_blank" rel="noopener">hexo-generator-sitemap</a></p>
+<h2 id="修改模板"><a href="#修改模板" class="headerlink" title="修改模板"></a>修改模板</h2><h2 id="添加分类"><a href="#添加分类" class="headerlink" title="添加分类"></a>添加分类</h2><p>在<code>layout</code>中添加分类专用模板<code>categories.pug</code>（也可以是其他名称，但不能是“category”，因为这个已经被hexo默认占用了<a href="https://hexo.io/zh-cn/docs/templates" target="_blank" rel="noopener">模板</a>），模板如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">extends partial&#x2F;layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">  h1.categories!&#x3D;  __(&#39;prev_post&#39;)</span><br><span class="line">  .category-all!&#x3D; list_categories(site.categories, &#123; show_count: false &#125;)</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">  include partial&#x2F;copyright</span><br></pre></td></tr></table></figure>
+
+<p>其中继承的layout和下方的内容可以自定义，关键在<code>list_categories</code>方法，该方法由<a href="https://hexo.io/zh-cn/docs/helpers#list-categories" target="_blank" rel="noopener">Hexo</a>提供，会渲染出分类列表，将其放在合适的位置。</p>
+<p>第一个参数需传递<code>site.categories</code>，将会渲染全站所有的分类数据（参考<a href="https://hexo.io/zh-cn/docs/variables" target="_blank" rel="noopener">变量</a>）。</p>
+<p>第二个参数为一些个性化参数，可自由配置。</p>
+<p>添加完成分类专用模板之后，如果想要个性化定制，还需要添加<code>category.pug</code>（必须是这个名称），在模板中通过<code>page.posts</code>获取到分类列表数据进行渲染。由于hexo会依次查找category-archive-index，当有该模板时就会拿来渲染，因此也可以在后几个模板中做兼容处理，而无需单独创建<code>category.pug</code>，参见<a href="https://hexo.io/zh-cn/docs/templates" target="_blank" rel="noopener">模板</a></p>
+<p>使用时新建page</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new page &lt;title&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在新建的page中添加<code>layout</code>属性为自己建的专用模板的名称即可。</p>
+</div></article></div></main><footer><div class="paginator-line"></div><link rel="stylesheet" href="/lib/gitalk.css"><script src="/lib/gitalk.min.js"></script><script src="/lib/md5.min.js"></script><div class="gitalk" id="gitalk-container"></div><script>var gitalk = new Gitalk({
+    clientID: 'be4a782f259d48039fed',
+    clientSecret: 'a319265f87b24084693c6cc46c363cf1330c6300',
+    repo: 'liivk.github.io',
+    owner: 'liivk',
+    admin: ['liivk'],
+    id: md5(location.pathname),
+    distractionFreeMode: 'false',  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+})
+gitalk.render('gitalk-container')</script><div class="copyright"><p><span class="copyright-desction">© 2019 <a href="https://liivk.github.io">liivk</a>, Power by <a href="https://hexo.io/" target="_blank">Hexo</a> | <a href="https://github.com/liivk/hexo-theme-space" target="_blank">Space</a></span></p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><script src="/lib/zepto.min.js"></script><script defer src="/js/space.js"></script></body></html>
